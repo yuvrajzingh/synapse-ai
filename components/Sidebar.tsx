@@ -39,13 +39,16 @@ function Sidebar() {
 
   const [data, loading, error] = useCollection(
     user && (
-      query(collectionGroup(db, 'rooms'), where('userId', '==', user.emailAddresses[0].toString())) 
+      query(collectionGroup(db, 'rooms'), where('userId', '==', user.emailAddresses[0].emailAddress)) 
     )
   )
 
+  //grouping doc based on whether the user is editor or owner
   useEffect(()=>{
     if(!data) return ;
-    
+
+
+
     const grouped = data.docs.reduce<{
       owner: RoomDocument[];
       editor: RoomDocument[]
@@ -93,7 +96,7 @@ function Sidebar() {
         ))}
       </>
       )}
-  </div>
+  
 
       {/* Shared with me  */}
       {groupedData.editor.length > 0 && (
@@ -106,7 +109,10 @@ function Sidebar() {
           }
         </>
       )}
+      </div>
     </>
+
+
   );
 
   return (

@@ -11,6 +11,8 @@ import { Separator } from "./ui/separator";
 import Editor from "./Editor";
 import DeleteDocument from "./DeleteDocument";
 import InviteUser from "./InviteUser";
+import ManageUsers from "./ManageUsers";
+import Avatars from "./Avatars";
 
 function Document({ id }: { id: string }) {
   const [data, loading, error] = useDocument(doc(db, "documents", id));
@@ -64,10 +66,16 @@ function Document({ id }: { id: string }) {
         </form>
       </div>
 
-      <div className="">
+      <div className="flex max-w-6xl mx-auto justify-between items-center mb-5">
         {/* ManageUsers */}
 
+          <ManageUsers />
+
+
         {/* Avatar  */}
+
+          <Avatars />
+
       </div>
 
       <Separator />

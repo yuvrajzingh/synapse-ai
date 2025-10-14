@@ -30,8 +30,7 @@ function DocumentPage({ params }: { params: { id: string } }) {
     }
 
     return (
-        <div className="flex flex-col flex-1 min-h-screen">
-    
+        <div className="flex flex-col flex-1 min-h-screen bg-zinc-200 dark:bg-zinc-900">
             <Document id={id} />
         </div>
     );

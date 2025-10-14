@@ -39,27 +39,29 @@ function Document({ id }: { id: string }) {
   };
 
   return (
-    <div>
-      <div className="flex max-w-6xl mx-auto justify-between pb-5">
-        <form onSubmit={updateTitle} className="flex flex-1 space-x-2 justify-center items-center">
-          {/* update this */}
+    <div className="mt-2 ml-2 bg-background rounded-sm">
+      <div className="flex max-w-6xl mx-auto justify-between pb-5 pt-5">
+        <form
+          onSubmit={updateTitle}
+          className="flex flex-1 space-x-2 justify-center items-center"
+        >
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            className="border-0 border-b-2 border-b-neutral-400 h-auto !text-[2.25rem] focus:!border-neutral-600 focus-visible:ring-0  rounded-none p-0 font-semibold" 
+            className="text-manrope border-0 border-b-2 border-b-neutral-400 h-auto !text-[2.25rem] focus:!border-zinc-500 focus-visible:ring-0  rounded-t-sm rounded-b-none p-0 !bg-transparent"
           />
 
-          <Button className="cursor-pointer" onClick={updateTitle}>{isUpdating ? "Renaming" : "Rename"}</Button>
-
+          <Button className="cursor-pointer" onClick={updateTitle}>
+            {isUpdating ? "Renaming" : "Rename"}
+          </Button>
 
           {isOwner && (
             <>
               {/* Invite User  */}
               <InviteUser />
 
-
               {/* Delete Doc  */}
-              <DeleteDocument /> 
+              <DeleteDocument />
             </>
           )}
           {/* isOwner && inviteMember && deleteDocument */}
@@ -69,16 +71,16 @@ function Document({ id }: { id: string }) {
       <div className="flex max-w-6xl mx-auto justify-between items-center mb-5">
         {/* ManageUsers */}
 
-          <ManageUsers />
-
+        <ManageUsers />
 
         {/* Avatar  */}
 
-          <Avatars />
-
+        <Avatars />
       </div>
 
-      <Separator />
+      <div className="px-10">
+        <Separator />
+      </div>
 
       {/* Collaborative Editor  */}
       <Editor />

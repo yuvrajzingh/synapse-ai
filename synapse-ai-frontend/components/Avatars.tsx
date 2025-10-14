@@ -13,7 +13,7 @@ function Avatars() {
 
   return (
     <div className="flex gap-2 items-center">
-      <p className="font-light text-sm">Users currently editing this page</p>
+      <p className="text-sm font-medium">Users currently editing this page</p>
 
       <div className="flex -space-x-5">
         {all.map((other, i) => (

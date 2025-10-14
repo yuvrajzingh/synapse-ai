@@ -8,7 +8,7 @@ async function DocLayout({children, params}: {children: React.ReactNode, params:
     const id = await params.id;
     await auth.protect()
   return (
-    <RoomProvider roomId={id} >{children}</RoomProvider>
+      <RoomProvider roomId={id} >{children}</RoomProvider>
   )
 }
 export default DocLayout

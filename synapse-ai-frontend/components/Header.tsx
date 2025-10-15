@@ -17,6 +17,9 @@ import {
 import { useTheme } from "next-themes";
 import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import logo from "@/public/assests/logo.png";
+import Image from "next/image";
+import Link from "next/link";
 
 function Header() {
   const { user } = useUser();
@@ -25,13 +28,20 @@ function Header() {
     ? user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)
     : "";
   return (
-    <div className="flex items-center justify-between p-5 border-b ">
-      {user && (
-        <h1 className="text-3xl text-manrope font-medium">
-          {firstName}
-          {`'s`} Space
-        </h1>
-      )}
+    <div className="flex items-center justify-between px-5 py-2 border-b ">
+      <div className="flex justify-center items-center space-x-4">
+        <Link href="/">
+          {" "}
+          <Image src={logo} width={60} height={60} alt="logo" />
+        </Link>
+
+        {user && (
+          <h1 className="text-3xl text-manrope font-medium">
+            {firstName}
+            {`'s`} Space
+          </h1>
+        )}
+      </div>
 
       <div>
         <Breadcrumbs />
@@ -63,11 +73,11 @@ function Header() {
 
         <div className="flex items-center">
           <SignedOut>
-            <SignInButton/>
+            <SignInButton />
           </SignedOut>
 
           <SignedIn>
-            <UserButton/>
+            <UserButton />
           </SignedIn>
         </div>
       </div>

@@ -16,49 +16,47 @@ import { db } from "@/firebase";
 
 function Breadcrumbs() {
   const path = usePathname();
-  const segments = path.split("/")
-  const id = segments[segments.length - 1]
-  console.log(id)
-  const [data] = useDocument(doc(db, "documents", id));
-  const [title, setTitle] = useState('...')
+  const segments = path.split("/");
+  const id = segments[segments.length - 1] || "";
+
+  // ✅ Always call hook, even if id is empty
+  const docRef = id ? doc(db, "documents", id) : null;
+  const [data] = useDocument(docRef);
+
+  const [title, setTitle] = useState("...");
 
   useEffect(() => {
-      if (data) {
-        setTitle(data?.data()?.title);
-      }
-    }, [data]);
+    if (data) setTitle(data.data()?.title || "Untitled");
+  }, [data]);
 
   return (
-      <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/">Home</BreadcrumbLink>
-          </BreadcrumbItem>
-            {
-                segments.map((segment, index) =>{
-                    if(!segment) return null;
+    <Breadcrumb>
+      <BreadcrumbList>
+        <BreadcrumbItem>
+          <BreadcrumbLink href="/">Home</BreadcrumbLink>
+        </BreadcrumbItem>
 
-                    const href = `/${segments.slice(0, index + 1).join("/")}`
-                    const isLast = index === segments.length - 1
+        {segments.map((segment, index) => {
+          if (!segment) return null;
+          const href = `/${segments.slice(0, index + 1).join("/")}`;
+          const isLast = index === segments.length - 1;
 
-                    return (
-                        <Fragment key={segment}>
-                            <BreadcrumbSeparator />
-                            <BreadcrumbItem>
-                            {
-                                isLast ? (
-                                    <BreadcrumbPage>{title}</BreadcrumbPage>
-                                ) : (
-                                    <BreadcrumbLink href={href}>{segment}</BreadcrumbLink>
-                                    ) 
-                            }                                
-                            </BreadcrumbItem>
-                        </Fragment>    
-                    )
-                })
-            }
-        </BreadcrumbList>
-      </Breadcrumb>
+          return (
+            <Fragment key={segment}>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                {isLast ? (
+                  <BreadcrumbPage>{title}</BreadcrumbPage>
+                ) : (
+                  <BreadcrumbLink href={href}>{segment}</BreadcrumbLink>
+                )}
+              </BreadcrumbItem>
+            </Fragment>
+          );
+        })}
+      </BreadcrumbList>
+    </Breadcrumb>
   );
 }
+
 export default Breadcrumbs;

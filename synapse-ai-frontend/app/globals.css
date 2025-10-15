@@ -1,8 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import url('https://fonts.googleapis.com/css2?family=Manrope&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Manrope&display=swap");
 @custom-variant dark (&:is(.dark *));
-
 
 @theme inline {
   --color-background: var(--background);
@@ -121,7 +120,7 @@
     @apply bg-background text-foreground font-sans;
   }
   .text-manrope {
-    font-family: 'Manrope', sans-serif;
+    font-family: "Manrope", sans-serif;
   }
 
   .bg-gray {
@@ -135,6 +134,13 @@
   }
 
   .default-text {
-    @apply text-zinc-500 font-medium
+    @apply text-zinc-500 font-medium;
   }
+
+  .blocknote-editor {
+    background-color: #18181b !important; /* for dark */
+  }
+ .dark .blocknote-editor {
+  background-color: #18181b !important;
+}
 }

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import * as Y from "yjs";
 import { LiveblocksYjsProvider } from "@liveblocks/yjs";
 import { BlockNoteView } from "@blocknote/shadcn";
+import "@blocknote/shadcn/style.css";
 import { useCreateBlockNote } from "@blocknote/react";
 import {
   BlockConfig,
@@ -39,9 +40,17 @@ function BlockNote({ doc, provider, darkMode }: EditorProps) {
   });
 
   return (
-    <div className="relative mx-auto">
+    <div
+      className={`relative mx-auto pb-10 rounded-sm h-[70vh] ${
+        darkMode ? "bg-zinc-900" : "bg-white"
+      }`}
+      style={{
+        ["--bn-background" as any]: darkMode ? "#18181b" : "#fafafa", // zinc-900 / zinc-50
+        ["--bn-text-color" as any]: darkMode ? "#fafafa" : "#18181b", // zinc text colors
+      }}
+    >
       <BlockNoteView
-        className="h-[72vh] min-w-[900px]"
+        className="blocknote-editor min-w-[900px] rounded-md"
         editor={editor}
         theme={darkMode ? "dark" : "light"}
       />

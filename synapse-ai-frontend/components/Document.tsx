@@ -39,7 +39,7 @@ function Document({ id }: { id: string }) {
   };
 
   return (
-    <div className="mt-2 ml-2 bg-background rounded-sm">
+    <div className="mt-2 ml-2 bg-background rounded-sm h-[100vh]">
       <div className="flex max-w-6xl mx-auto justify-between pb-5 pt-5">
         <form
           onSubmit={updateTitle}

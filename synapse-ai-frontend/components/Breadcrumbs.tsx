@@ -18,8 +18,6 @@ function Breadcrumbs() {
   const path = usePathname();
   const segments = path.split("/");
   const id = segments[segments.length - 1] || "";
-
-  // ✅ Always call hook, even if id is empty
   const docRef = id ? doc(db, "documents", id) : null;
   const [data] = useDocument(docRef);
 

@@ -1,5 +1,5 @@
 import { useRoom, useSelf } from "@liveblocks/react/suspense";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import * as Y from "yjs";
 import { LiveblocksYjsProvider } from "@liveblocks/yjs";
 import { BlockNoteView } from "@blocknote/shadcn";
@@ -28,16 +28,22 @@ type EditorProps = {
 function BlockNote({ doc, provider, darkMode }: EditorProps) {
   const userInfo = useSelf((me) => me.info);
 
-  const editor: BlockNoteEditor = useCreateBlockNote({
-    collaboration: {
-      provider,
-      fragment: doc.getXmlFragment("document-store"),
-      user: {
-        name: userInfo?.name,
-        color: stringToColor(userInfo?.email),
+  const editor: BlockNoteEditor | null = useMemo(() => {
+    if (!provider || !doc || !userInfo) return null;
+
+    return useCreateBlockNote({
+      collaboration: {
+        provider,
+        fragment: doc.getXmlFragment("document-store"),
+        user: {
+          name: userInfo?.name,
+          color: stringToColor(userInfo?.email),
+        },
       },
-    },
-  });
+    });
+  }, [provider, doc, userInfo]);
+
+  if (!editor) return null;
 
   return (
     <div
@@ -45,8 +51,8 @@ function BlockNote({ doc, provider, darkMode }: EditorProps) {
         darkMode ? "bg-zinc-900" : "bg-white"
       }`}
       style={{
-        ["--bn-background" as any]: darkMode ? "#18181b" : "#fafafa", // zinc-900 / zinc-50
-        ["--bn-text-color" as any]: darkMode ? "#fafafa" : "#18181b", // zinc text colors
+        ["--bn-background" as any]: darkMode ? "#18181b" : "#fafafa",
+        ["--bn-text-color" as any]: darkMode ? "#fafafa" : "#18181b",
       }}
     >
       <BlockNoteView

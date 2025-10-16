@@ -7,11 +7,10 @@ export default async function DocLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: any;
+  params: { id: string };
 }) {
   const { userId } = await auth();
   if (!userId) redirect("/sign-in");
 
   return <RoomProvider roomId={params.id}>{children}</RoomProvider>;
 }
-

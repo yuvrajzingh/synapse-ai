@@ -1,7 +1,7 @@
 import { Trash2Icon, TrashIcon } from 'lucide-react';
 import React from 'react';
 import styled from 'styled-components';
-import { Button } from "../ui/button";
+
 
 const DeleteButton = () => {
   return (

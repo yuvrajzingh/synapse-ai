@@ -12,7 +12,10 @@ import Editor from "./Editor";
 import DeleteDocument from "./DeleteDocument";
 import InviteUser from "./InviteUser";
 import ManageUsers from "./ManageUsers";
-import Avatars from "./Avatars";
+import dynamic from "next/dynamic";
+
+//Dynamically import Avatars so it loads *after* hydration
+const Avatars = dynamic(() => import("./Avatars"), { ssr: false });
 
 function Document({ id }: { id: string }) {
   const [data, loading, error] = useDocument(doc(db, "documents", id));
@@ -57,24 +60,15 @@ function Document({ id }: { id: string }) {
 
           {isOwner && (
             <>
-              {/* Invite User  */}
               <InviteUser />
-
-              {/* Delete Doc  */}
               <DeleteDocument />
             </>
           )}
-          {/* isOwner && inviteMember && deleteDocument */}
         </form>
       </div>
 
       <div className="flex max-w-6xl mx-auto justify-between items-center mb-5">
-        {/* ManageUsers */}
-
         <ManageUsers />
-
-        {/* Avatar  */}
-
         <Avatars />
       </div>
 
@@ -82,9 +76,9 @@ function Document({ id }: { id: string }) {
         <Separator />
       </div>
 
-      {/* Collaborative Editor  */}
       <Editor />
     </div>
   );
 }
+
 export default Document;

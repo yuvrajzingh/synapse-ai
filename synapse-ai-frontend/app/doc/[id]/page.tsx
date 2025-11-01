@@ -1,5 +1,3 @@
-'use client';
-
 import Document from "@/components/Document";
 
 export default async function DocumentPage({

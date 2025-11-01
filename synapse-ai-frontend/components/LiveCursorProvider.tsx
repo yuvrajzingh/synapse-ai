@@ -8,7 +8,7 @@ function LiveCursorProvider({children}: {children: React.ReactNode}) {
     const others = useOthers() // others presence
     
     function handlePointerMove(e: PointerEvent<HTMLDivElement>){
-        //update from ClietX and ClientY to PageX and PageY for full page cursor tracking
+        //update from ClientX and ClientY to PageX and PageY for full page cursor tracking
         //imagine the collaborator scrolled all the way down the page if we had used the Client version
         //we would see the cursor all the way in the bottom of our page, which doesn't look good.
         const cursor = {x: Math.floor(e.pageX), y: Math.floor(e.pageY)}

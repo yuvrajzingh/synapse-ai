@@ -21,29 +21,25 @@ import ChatToDocument from "./ChatToDocument";
 
 type EditorProps = {
   doc: Y.Doc;
-  provider: any;
+  provider: LiveblocksYjsProvider;
   darkMode: boolean;
 };
 
 function BlockNote({ doc, provider, darkMode }: EditorProps) {
   const userInfo = useSelf((me) => me.info);
-
-  const editor: BlockNoteEditor | null = useMemo(() => {
-    if (!provider || !doc || !userInfo) return null;
-
-    return useCreateBlockNote({
-      collaboration: {
-        provider,
-        fragment: doc.getXmlFragment("document-store"),
-        user: {
-          name: userInfo?.name,
-          color: stringToColor(userInfo?.email),
-        },
+  const editor = useCreateBlockNote({
+    collaboration: {
+      provider,
+      fragment: doc.getXmlFragment("document-store"),
+      user: {
+        name: userInfo?.name,
+        color: stringToColor(userInfo?.email),
       },
-    });
-  }, [provider, doc, userInfo]);
+    },
+  });
 
-  if (!editor) return null;
+  // Wait until we have all data before rendering
+  if (!userInfo || !doc || !provider) return null;
 
   return (
     <div
